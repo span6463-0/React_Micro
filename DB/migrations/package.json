@@ -1,0 +1,10 @@
+{
+  "name": "react-micro-db-migrations",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "knex": "^3.1.0",
+    "pg": "^8.12.0"
+  }
+}
