@@ -1,0 +1,11 @@
+.git
+node_modules
+dist
+build
+coverage
+*.md
+*.log
+.env*
+.gitignore
+.prettierrc
+.eslintrc*

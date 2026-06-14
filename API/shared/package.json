@@ -1,0 +1,15 @@
+{
+  "name": "@react-micro/api-shared",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./middleware": "./middleware/index.js",
+    "./utils": "./utils/index.js"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2",
+    "kafkajs": "^2.2.4"
+  }
+}
