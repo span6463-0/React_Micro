@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
 
 const ItemCreate = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const isEditing = Boolean(id);
+  const token = useSelector((state) => state.auth?.token);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -17,6 +21,31 @@ const ItemCreate = () => {
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!isEditing) return;
+    const fetchItem = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/items/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (!res.ok) throw new Error('Failed to fetch item');
+        const { data } = await res.json();
+        setFormData({
+          name: data.name || '',
+          description: data.description || '',
+          category: data.category || '',
+          price: data.price ?? '',
+          sku: data.sku || '',
+          stock: data.stock ?? '',
+          status: data.status || 'Draft',
+        });
+      } catch {
+        setErrors({ form: 'Failed to load item data.' });
+      }
+    };
+    fetchItem();
+  }, [id, isEditing, token]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,11 +81,34 @@ const ItemCreate = () => {
 
     setIsLoading(true);
     try {
-      // TODO: Dispatch create/update action
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const payload = {
+        ...formData,
+        price: parseFloat(formData.price),
+        stock: formData.stock !== '' ? parseInt(formData.stock, 10) : 0,
+      };
+
+      const url = isEditing
+        ? `${API_BASE_URL}/api/items/${id}`
+        : `${API_BASE_URL}/api/items`;
+      const method = isEditing ? 'PUT' : 'POST';
+
+      const res = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body?.error?.message || 'Request failed');
+      }
+
       navigate('/items');
     } catch (error) {
-      setErrors({ form: 'An error occurred. Please try again.' });
+      setErrors({ form: error.message || 'An error occurred. Please try again.' });
     } finally {
       setIsLoading(false);
     }

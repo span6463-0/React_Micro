@@ -1,8 +1,12 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
 
 const ItemDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const token = useSelector((state) => state.auth?.token);
 
   // Mock data - replace with RTK Query
   const item = {
@@ -18,10 +22,17 @@ const ItemDetail = () => {
     updatedAt: '2024-01-20T14:45:00Z',
   };
 
-  const handleDelete = () => {
-    if (window.confirm('Are you sure you want to delete this item?')) {
-      // TODO: Dispatch delete action
+  const handleDelete = async () => {
+    if (!window.confirm('Are you sure you want to delete this item?')) return;
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/items/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error('Delete failed');
       navigate('/items');
+    } catch (error) {
+      alert(error.message || 'Failed to delete item. Please try again.');
     }
   };
 

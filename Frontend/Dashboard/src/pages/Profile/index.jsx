@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
+
 const Profile = () => {
   const user = useSelector((state) => state.auth?.user) || {};
+  const token = useSelector((state) => state.auth?.token);
   const [formData, setFormData] = useState({
     name: user.name || '',
     email: user.email || '',
@@ -10,16 +13,41 @@ const Profile = () => {
     bio: user.bio || '',
   });
   const [isEditing, setIsEditing] = useState(false);
+  const [saveError, setSaveError] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Dispatch update profile action
-    setIsEditing(false);
+    setSaveError(null);
+    setIsSaving(true);
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/users/${user.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          bio: formData.bio,
+        }),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body?.error?.message || 'Update failed');
+      }
+      setIsEditing(false);
+    } catch (error) {
+      setSaveError(error.message || 'Failed to update profile. Please try again.');
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -104,20 +132,24 @@ const Profile = () => {
           </div>
 
           <div className="flex justify-end gap-4">
+            {saveError && (
+              <p className="text-sm text-red-600 self-center mr-auto">{saveError}</p>
+            )}
             {isEditing ? (
               <>
                 <button
                   type="button"
-                  onClick={() => setIsEditing(false)}
+                  onClick={() => { setIsEditing(false); setSaveError(null); }}
                   className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                  disabled={isSaving}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
                 >
-                  Save Changes
+                  {isSaving ? 'Saving...' : 'Save Changes'}
                 </button>
               </>
             ) : (

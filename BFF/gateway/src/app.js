@@ -47,14 +47,30 @@ app.get('/health', (req, res) => {
 });
 
 app.get('/health/ready', async (req, res) => {
-  // TODO: Add service health checks
-  res.json({
-    status: 'ready',
-    services: {
-      auth: 'up',
-      user: 'up',
-      item: 'up',
-    },
+  const checkService = async (name, url) => {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 2000);
+      const response = await fetch(`${url}/health`, { signal: controller.signal });
+      clearTimeout(timeout);
+      return { [name]: response.ok ? 'up' : 'degraded' };
+    } catch {
+      return { [name]: 'down' };
+    }
+  };
+
+  const [auth, user, item] = await Promise.all([
+    checkService('auth', config.services.auth),
+    checkService('user', config.services.user),
+    checkService('item', config.services.item),
+  ]);
+
+  const services = { ...auth, ...user, ...item };
+  const allUp = Object.values(services).every((s) => s === 'up');
+
+  res.status(allUp ? 200 : 503).json({
+    status: allUp ? 'ready' : 'degraded',
+    services,
     timestamp: new Date().toISOString(),
   });
 });
