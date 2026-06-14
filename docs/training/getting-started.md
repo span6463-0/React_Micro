@@ -86,9 +86,9 @@ Minimum local `.env` for BFF:
 NODE_ENV=development
 BFF_PORT=4000
 JWT_SECRET=local-dev-secret-key-minimum-32-characters
-AUTH_API_URL=http://localhost:3001
-USER_API_URL=http://localhost:3002
-ITEM_API_URL=http://localhost:3003
+AUTH_API_URL=http://localhost:5001
+USER_API_URL=http://localhost:5002
+ITEM_API_URL=http://localhost:5003
 CORS_ORIGINS=http://localhost:3000
 ```
 
@@ -112,9 +112,9 @@ Open **separate terminals** for each service:
 
 ```bash
 # Terminal 1 — API services
-cd API/auth-api && npm run dev     # http://localhost:3001
-cd API/user-api && npm run dev     # http://localhost:3002
-cd API/item-api && npm run dev     # http://localhost:3003
+cd API/auth-api && npm run dev     # http://localhost:5001
+cd API/user-api && npm run dev     # http://localhost:5002
+cd API/item-api && npm run dev     # http://localhost:5003
 
 # Terminal 2 — BFF Gateway
 cd BFF/gateway && npm run dev      # http://localhost:4000

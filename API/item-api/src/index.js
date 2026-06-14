@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Joi from 'joi';
 
 const app = express();
-const PORT = process.env.ITEM_API_PORT || 3003;
+const PORT = process.env.ITEM_API_PORT || 5003;
 
 // Database
 const db = knex({

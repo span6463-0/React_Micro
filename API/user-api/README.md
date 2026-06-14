@@ -2,7 +2,7 @@
 
 User management microservice — manages user profiles, roles, and preferences.
 
-**Port**: 3002  
+**Port**: 5002  
 **Database**: `user_db` (PostgreSQL 15)
 
 ## Prerequisites
@@ -27,7 +27,7 @@ npm install
 
 # 2. Create environment file
 cat > .env << 'EOF'
-USER_API_PORT=3002
+USER_API_PORT=5002
 USER_DB_HOST=localhost
 USER_DB_PORT=5434
 USER_DB_NAME=user_db
@@ -42,10 +42,10 @@ EOF
 npm run dev
 ```
 
-The service starts on **http://localhost:3002**. Verify with:
+The service starts on **http://localhost:5002**. Verify with:
 
 ```bash
-curl http://localhost:3002/health
+curl http://localhost:5002/health
 # → { "status": "ok" }
 ```
 
@@ -73,7 +73,7 @@ See [full API reference](../../docs/api/user-api.md) for request/response schema
 ## Environment Variables
 
 ```env
-USER_API_PORT=3002
+USER_API_PORT=5002
 USER_DB_HOST=localhost
 USER_DB_PORT=5434
 USER_DB_NAME=user_db

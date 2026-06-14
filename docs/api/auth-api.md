@@ -2,7 +2,7 @@
 
 Handles all authentication operations: registration, login, token refresh, and logout.
 
-**Direct Service Port**: 3001 (internal)  
+**Direct Service Port**: 5001 (internal)  
 **BFF Base Path**: `/api/auth`
 
 ---

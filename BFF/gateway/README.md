@@ -9,9 +9,9 @@ Backend for Frontend — single entry point for all React micro-frontends. Aggre
 - Node.js 24.x (`nvm use 24`)
 - Docker infrastructure running: `cd Infrastructure/docker && docker-compose up -d`
 - All three API services running:
-  - Auth API on port 3001
-  - User API on port 3002
-  - Item API on port 3003
+  - Auth API on port 5001
+  - User API on port 5002
+  - Item API on port 5003
 
 ## Run Locally
 
@@ -83,9 +83,9 @@ NODE_ENV=development
 BFF_PORT=4000
 JWT_SECRET=your-secret-key-min-32-chars
 JWT_EXPIRES_IN=15m
-AUTH_API_URL=http://localhost:3001
-USER_API_URL=http://localhost:3002
-ITEM_API_URL=http://localhost:3003
+AUTH_API_URL=http://localhost:5001
+USER_API_URL=http://localhost:5002
+ITEM_API_URL=http://localhost:5003
 CORS_ORIGINS=http://localhost:3000
 RATE_LIMIT_WINDOW_MS=900000
 RATE_LIMIT_MAX=100

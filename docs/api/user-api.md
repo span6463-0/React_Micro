@@ -2,7 +2,7 @@
 
 Manages user profiles, roles, and preferences.
 
-**Direct Service Port**: 3002 (internal)  
+**Direct Service Port**: 5002 (internal)  
 **BFF Base Path**: `/api/users`
 
 ---

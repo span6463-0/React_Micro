@@ -2,7 +2,7 @@
 
 Item management microservice — CRUD for items, inventory tracking, categories, and audit history.
 
-**Port**: 3003  
+**Port**: 5003  
 **Database**: `item_db` (PostgreSQL 15)
 
 ## Prerequisites
@@ -26,7 +26,7 @@ npm install
 
 # 2. Create environment file
 cat > .env << 'EOF'
-ITEM_API_PORT=3003
+ITEM_API_PORT=5003
 ITEM_DB_HOST=localhost
 ITEM_DB_PORT=5435
 ITEM_DB_NAME=item_db
@@ -40,10 +40,10 @@ EOF
 npm run dev
 ```
 
-The service starts on **http://localhost:3003**. Verify with:
+The service starts on **http://localhost:5003**. Verify with:
 
 ```bash
-curl http://localhost:3003/health
+curl http://localhost:5003/health
 # → { "status": "ok" }
 ```
 
@@ -73,7 +73,7 @@ See [full API reference](../../docs/api/item-api.md) for request/response schema
 ## Environment Variables
 
 ```env
-ITEM_API_PORT=3003
+ITEM_API_PORT=5003
 ITEM_DB_HOST=localhost
 ITEM_DB_PORT=5435
 ITEM_DB_NAME=item_db

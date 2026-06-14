@@ -2,7 +2,7 @@
 
 Manages items including CRUD operations, inventory tracking, categories, and audit history.
 
-**Direct Service Port**: 3003 (internal)  
+**Direct Service Port**: 5003 (internal)  
 **BFF Base Path**: `/api/items`
 
 ---

@@ -7,7 +7,7 @@ import { Kafka } from 'kafkajs';
 import { v4 as uuidv4 } from 'uuid';
 
 const app = express();
-const PORT = process.env.USER_API_PORT || 3002;
+const PORT = process.env.USER_API_PORT || 5002;
 
 // Database
 const db = knex({

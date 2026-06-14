@@ -3,7 +3,7 @@ import app from './app.js';
 import { db } from './config/database.js';
 import { kafkaProducer } from './config/kafka.js';
 
-const PORT = process.env.AUTH_API_PORT || 3001;
+const PORT = process.env.AUTH_API_PORT || 5001;
 
 const start = async () => {
   try {

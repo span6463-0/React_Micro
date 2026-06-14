@@ -81,9 +81,9 @@ Auth API → Kafka (auth.events: USER_REGISTERED) → User API
 | Dashboard Remote       | 3002             | User dashboard          |
 | Item-management Remote | 3003             | Item CRUD UI            |
 | BFF Gateway            | 4000             | API aggregation layer   |
-| Auth API               | 3001 (container) | Authentication service  |
-| User API               | 3002 (container) | User management service |
-| Item API               | 3003 (container) | Item management service |
+| Auth API               | 5001             | Authentication service  |
+| User API               | 5002             | User management service |
+| Item API               | 5003             | Item management service |
 | auth_db                | 5433             | Auth PostgreSQL         |
 | user_db                | 5434             | User PostgreSQL         |
 | item_db                | 5435             | Item PostgreSQL         |

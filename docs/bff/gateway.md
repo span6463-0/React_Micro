@@ -10,9 +10,9 @@ The Backend for Frontend (BFF) is the sole entry point for the React frontend. I
 ## Architecture Role
 
 ```
-React Apps  ──→  BFF Gateway (4000)  ──→  Auth API (3001)
-                        │              ──→  User API (3002)
-                        │              ──→  Item API (3003)
+React Apps  ──→  BFF Gateway (4000)  ──→  Auth API (5001)
+                        │              ──→  User API (5002)
+                        │              ──→  Item API (5003)
                         │
                   ┌─────┴────────────────┐
                   │ Cross-cutting Concerns│
@@ -152,9 +152,9 @@ JWT_SECRET=your-secret-key-min-32-chars
 JWT_EXPIRES_IN=15m
 
 # Downstream Services
-AUTH_API_URL=http://localhost:3001
-USER_API_URL=http://localhost:3002
-ITEM_API_URL=http://localhost:3003
+AUTH_API_URL=http://localhost:5001
+USER_API_URL=http://localhost:5002
+ITEM_API_URL=http://localhost:5003
 
 # CORS
 CORS_ORIGINS=http://localhost:3000,http://localhost:3001

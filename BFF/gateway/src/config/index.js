@@ -5,9 +5,9 @@ export const config = {
   corsOrigins: process.env.CORS_ORIGINS?.split(',') || ['http://localhost:3000'],
   
   services: {
-    auth: process.env.AUTH_API_URL || 'http://localhost:3001',
-    user: process.env.USER_API_URL || 'http://localhost:3002',
-    item: process.env.ITEM_API_URL || 'http://localhost:3003',
+    auth: process.env.AUTH_API_URL || 'http://localhost:5001',
+    user: process.env.USER_API_URL || 'http://localhost:5002',
+    item: process.env.ITEM_API_URL || 'http://localhost:5003',
   },
   
   jwt: {

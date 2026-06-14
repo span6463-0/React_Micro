@@ -2,7 +2,7 @@
 
 Authentication microservice — handles user registration, login, JWT issuance, refresh token rotation, and logout.
 
-**Port**: 3001  
+**Port**: 5001  
 **Database**: `auth_db` (PostgreSQL 15)
 
 ## Prerequisites
@@ -31,10 +31,10 @@ cp .env.example .env
 npm run dev
 ```
 
-The service starts on **http://localhost:3001**. Verify with:
+The service starts on **http://localhost:5001**. Verify with:
 
 ```bash
-curl http://localhost:3001/health
+curl http://localhost:5001/health
 # → { "status": "ok" }
 ```
 
@@ -62,7 +62,7 @@ See [full API reference](../../docs/api/auth-api.md) for request/response schema
 ## Environment Variables
 
 ```env
-AUTH_API_PORT=3001
+AUTH_API_PORT=5001
 AUTH_DB_HOST=localhost
 AUTH_DB_PORT=5433
 AUTH_DB_NAME=auth_db
