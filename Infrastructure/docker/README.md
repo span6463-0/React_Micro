@@ -157,3 +157,42 @@ docker build -t react-micro/dashboard:latest \
   -f Dockerfile.frontend \
   ../../Frontend/Dashboard
 ```
+
+
+# Auth DB
+podman exec -it auth_db psql -U postgres -d auth_db
+
+# User DB
+podman exec -it user_db psql -U postgres -d user_db
+
+# Item DB
+podman exec -it item_db psql -U postgres -d item_db
+
+-- List all tables
+\dt
+
+-- Describe a table structure
+\d users_auth
+
+-- Run a query
+SELECT * FROM users_auth LIMIT 10;
+
+-- List all databases
+\l
+
+-- Exit
+\q
+
+
+
+podman run -d --name auth_db \
+  -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=auth_db \
+  -p 5433:5432 postgres:15
+
+podman run -d --name user_db \
+  -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=user_db \
+  -p 5434:5432 postgres:15
+
+podman run -d --name item_db \
+  -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=item_db \
+  -p 5435:5432 postgres:15

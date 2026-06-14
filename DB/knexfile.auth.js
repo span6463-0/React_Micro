@@ -9,7 +9,7 @@ export default {
     password: process.env.AUTH_DB_PASSWORD || 'postgres',
   },
   migrations: {
-    directory: '.',
+    directory: './migrations',
     tableName: 'knex_migrations_auth',
     loadExtensions: ['.js'],
   },
