@@ -43,8 +43,8 @@ const itemSchema = Joi.object({
   sku: Joi.string().required(),
   stock: Joi.number().integer().min(0).default(0),
   status: Joi.string().valid('Draft', 'Active', 'Archived').default('Draft'),
-  createdBy: Joi.string().uuid(),
-  updatedBy: Joi.string().uuid(),
+  created_by: Joi.string().uuid(),
+  updated_by: Joi.string().uuid(),
 });
 
 // Health check

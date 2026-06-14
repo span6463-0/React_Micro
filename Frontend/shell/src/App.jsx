@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
+import ProtectedLayout from './components/ProtectedLayout';
 import LoadingSpinner from './components/LoadingSpinner';
 import ErrorBoundary from './components/ErrorBoundary';
 
@@ -15,12 +16,26 @@ const App = () => {
       <ErrorBoundary>
         <Suspense fallback={<LoadingSpinner />}>
           <Routes>
-            {/* Public routes */}
+            {/* Public routes — no sidebar */}
             <Route path="/*" element={<LandingPage />} />
-            
-            {/* Protected routes */}
-            <Route path="/dashboard/*" element={<Dashboard />} />
-            <Route path="/items/*" element={<ItemManagement />} />
+
+            {/* Protected routes — persistent sidebar from Shell */}
+            <Route
+              path="/dashboard/*"
+              element={
+                <ProtectedLayout>
+                  <Dashboard />
+                </ProtectedLayout>
+              }
+            />
+            <Route
+              path="/items/*"
+              element={
+                <ProtectedLayout>
+                  <ItemManagement />
+                </ProtectedLayout>
+              }
+            />
           </Routes>
         </Suspense>
       </ErrorBoundary>

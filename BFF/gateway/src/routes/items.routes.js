@@ -32,7 +32,7 @@ router.get('/:id', optionalAuth, async (req, res, next) => {
 router.post('/', authenticate, async (req, res, next) => {
   try {
     const result = await itemService.create(
-      { ...req.body, createdBy: req.user.id },
+      { ...req.body, created_by: req.user.id },
       req.correlationId
     );
     res.status(201).json({ success: true, data: result.data });
@@ -46,7 +46,7 @@ router.put('/:id', authenticate, async (req, res, next) => {
   try {
     const result = await itemService.update(
       req.params.id,
-      { ...req.body, updatedBy: req.user.id },
+      { ...req.body, updated_by: req.user.id },
       req.correlationId
     );
     res.json({ success: true, data: result.data });
